@@ -31,31 +31,26 @@ let orm ={
     })
   },
   create: (table, cols, values, callback)=>{
-    let queryString = "INSERT INTO "+ table;
-    queryString+= " ("+cols.toString()+") "
-    queryString+= "VALUES ("+ makeQuestionMarks(values.length)+ ")";
-
-    console.log(queryString);
-    connection.query(queryString, values, (err, data)=>{
+    let queryString = "INSERT INTO ??(??) VALUES ";
+    queryString += "("+makeQuestionMarks(values.length)+")";
+    console.log(queryString)
+    connection.query(queryString,[table,cols,...values],(err, data)=>{
       if(err)throw err;
-
       callback(data);
     })
   },
+  
   update: (table, colValsObj, condition, callback)=>{
-    let queryString= "UPDATE "+ table + " SET ";
-    queryString+= objToSql(colValsObj);
-    queryString+= " WHERE "+ condition;
+    let queryString= "UPDATE ?? SET ? WHERE ?";
     console.log(queryString);
-    connection.query(queryString, (err, data)=>{
+    connection.query(queryString,[table,colValsObj,condition], (err, data)=>{
       if(err)throw err;
       callback(data);
     })
   },
   remove: (table, condition, callback)=>{
-    let queryString ="DELETE FROM "+ table;
-    queryString += " WHERE "+condition;
-    connection.query(queryString, (err, data)=>{
+    let queryString ="DELETE FROM ?? WHERE ?"
+    connection.query(queryString,[table,condition], (err, data)=>{
       if(err)throw err;
       callback(data);
     })
@@ -64,4 +59,6 @@ let orm ={
 }
 
 module.exports = orm;
+//orm.createTwo("burgers", ["burger_name"],["createTwo burger"], console.log);
+//orm.updateTwo("burgers",{burger_name: "updateTest Burger"},{id:7},console.log);
 

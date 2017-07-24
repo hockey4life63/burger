@@ -22,21 +22,21 @@ router.post("/", (req, res)=>{
 })
 
 router.put("/:id", (req, res)=>{
-  let id = "id = " +req.params.id;
+  let id = {id: +req.params.id};
   burger.devour(id, function () {
     res.redirect("/");
   })
  })
 
 router.delete("/:id", (req, res)=>{
-  let id = "id = " +req.params.id;
+  let id = {id: +req.params.id};
   burger.remove(id, function () {
     res.redirect("/")
   })
 })
 
 router.put("/name/:id", (req, res)=>{
-  let id = "id = "+ req.params.id;
+  let id =  {id: +req.params.id};
   let colObj = {
     burger_name: req.body.name
   }

@@ -31,3 +31,7 @@ const burger = {
 }
 
 module.exports = burger;
+
+//burger.create(["createTwoModel burger"], console.log);
+//burger.update({burger_name:"modelTest Burger"}, {id:7},console.log)
+// burger.remove({id:7}, console.log)
